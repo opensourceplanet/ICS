@@ -1,0 +1,2 @@
+# ICS
+Idea Collaboration System
