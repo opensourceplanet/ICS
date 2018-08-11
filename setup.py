@@ -9,14 +9,15 @@
 # user = setup.UserBuild()
 '''
 import hashlib
-from _log import log
+from modules._log import log
+from modules.ip import Location
+from modules.writer import FileObject, Write2file
+from modules.ntwrk import pyscanner3
 
 class UserBuild:
     '''
-        # for testing the current local build
-               #### current cpu system configuration 
-                           #### file system analyze 
-            ## checks for corrupted or out of date software
+        # for testing current cpu system configuration 
+        # and checks for corrupted or out of date software
     '''
 
     def __init__(self):
@@ -35,11 +36,13 @@ class UserBuild:
         return platform.system()
     
     def get_ip(self):
-        # get
-        from a_w.orld import Location
+        log('obtaining ip info')
         self.location = Location()
-        self._0_node_ip = self.location.ip
-        return self._0_node_ip
+        self.__0_node_ip = self.location.ip
+        log(self.__0_node_ip)
+        log('network host scan initiating')
+        #pyscanner3.scan_host_ip()
+        return self.__0_node_ip
 
     def user_build(self):
         log('user_build')
@@ -83,8 +86,7 @@ class UserBuild:
     
     def _config_file(self):
         self.__config_file = FileObject('cfg', 'txt')
+        Write2file(self.__config_file.file, self.build)
+        return self.__config_file
         
-
-
-
 

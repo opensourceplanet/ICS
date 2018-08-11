@@ -4,6 +4,8 @@
 functional implementation of the 
 'transport layer security sever' or tpls_server
 
+this code works for the most part
+
 when i wrote this only God and I understood it. 
 now only God does
 
@@ -20,8 +22,8 @@ logging.basicConfig(level=logging.DEBUG,
                     )
 
 
-local_ip = "192.168.1.3"
-n_port = 1234
+local_ip = "192.168.1.2"
+n_port = 1423
 tw = ['nighthawk','22670bf1b10545e46f7d797c8e4bd7a77af1bb667f7e864aaca07fad65439f84','951c49bc88ce9a2cc31d4470423590a7c0bedbef953a06a72e6b5d4f74731ed6', '56b8ba882b6aeeb7fa43f9125d8d2909b8a734f82b46b67b3809105a28cfb05d']
 trusted_wallet_hash = tw
 handshake = []
@@ -106,14 +108,15 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
 
     arnold = 'CONNECTION ' + ip + ':' + port + " TERMINATED"
     autolog(arnold)
-    start_handshake()
+
 
 
 def fid_analyze(fid):
     autolog(type(fid))
+    autolog(fid)
     if fid == '99':
         autolog(fid)
-        run = False
+
     elif fid == '0':
         # pipe to execute function
         autolog('0_NETWORK_PROTOCOL')

@@ -58,7 +58,7 @@ class IPFS_add_file:
         # ensure the transfer went through by printing the filehash and file contents
         print(self.__filehash)
         print(self.api_connection.cat(self.__filehash))
-        return 
+        return self.__filehash
 
 
 

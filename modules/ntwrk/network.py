@@ -117,12 +117,13 @@ class tpls_server:
         self._socket.listen(10)
         self.conn , self.addr = self._socket.accept()
         self.__ip , self.__port = str(self.addr[0]), str(self.addr[1])
-        self.Thread(target=self.client_thread, args=(self.conn, self.__ip, self.__port)).start()
+        return self.Thread(target=self.client_thread, args=(self.conn, self.__ip, self.__port)).start()
         
     def client_thread(self, conn, ip, port, MAX_BUFFER_SIZE = 4096):
         self.incoming_client_hash = self.conn.recv(MAX_BUFFER_SIZE)
         self.incoming_client_hash_size = self._check_size(self.incoming_client_hash)
         self.client_hash = self._decode(self.incoming_client_hash)
+        print(self.client_hash)
         return self.client_hash
 
     def _client_hash_analyzer(self):

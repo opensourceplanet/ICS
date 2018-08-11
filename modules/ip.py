@@ -1,8 +1,4 @@
-'''
-## a_w.orld
-'''
-
-sphere_matrix = [ [], [], [], [], [], [], [], [] ]
+from requests import get
 
 class Location:
     """
@@ -20,7 +16,6 @@ class Location:
 
 
     def __get_ip(self):
-        from requests import get
         try:
             self._0_node_ip = get('http://ip.42.pl/raw').text
         except:

@@ -34,6 +34,8 @@ class NodeServer:
             -config security settings
 
     """
+    from modules.ntwrk import tpls_server
+    from modules.ntwrk import network
 
     def __init__(self, config_file):
         self._configFile = config_file
@@ -59,5 +61,8 @@ class NodeServer:
 
     def __tpls_server(self):
         # transport layer security server
-        # 
+        # oop implementation
+        self.network.tpls_server('192.168.1.2', 1423)
+        # functional implementation
+        #self.tpls_server.start_handshake()
         return 0

@@ -10,9 +10,11 @@ not always the case. good luck ~jpd
 #==============================================================================================#
 '''
 
-from modules.menu import initialize_menu, choose_from_menu, quit_menu
+from modules import menu 
 from modules.ntwrk import tpls_server
-from modules.matix import main
+from node_server import NodeServer
+from modules.chain import ipfs
+
 from time import sleep
 import os
 
@@ -37,6 +39,9 @@ class DateTime():
 admin1 = Admin('admin', 'password')
 # hint: this line 
 dt1 = DateTime()
+
+
+
 #==============================================================================================#
 
 def help_menu():
@@ -104,7 +109,6 @@ def clear():
 def refresh_screen():
     clear()
     title()
-    input('.')
 
 
 #==============================================================================================#
@@ -135,26 +139,6 @@ while login:
             print('You are logging in as ', usn)
             refresh_screen()
             break
-
-#==============================================================================================#
-# MATRIX MENU
-#==============================================================================================#
-def genmatrix():
-    el1 = int(input('el1> '))
-    el2 = int(input('el2> '))
-    main.matrix(el1, el2)
-    input('>')
-
-infinity_menu = {
-    "matrix": genmatrix,
-    'HELP MENU': help_menu,
-    'Quit': quit_menu,
-    'tpls start handshake': tpls_server.start_handshake
-}
-
-def matrixm():
-    # Launch the terminal menu interface 
-    initialize_menu(infinity_menu, 'BB Main Menu') 
 #==============================================================================================#
 
 
@@ -191,22 +175,40 @@ def rfs(pathname):
     return returndata
 
 def rootfile_list_2():
-    spath = '/'
-    rootfilelist = os.listdir(spath)
-    root_dict = rootfilelist
-    
-    for i in range(0, len(rootfilelist)):
-        print(i, spath + rootfilelist[i])
+    p = rfs('.')
+    print(p)
 
-    input('rootfile_list>\t')
-    return rootfilelist
-        
+def __setup():
+    from setup import UserBuild
+    ub = UserBuild()
+    input('>>')
+
+def __tpls_server():
+    __node = NodeServer('cfg.txt')
+    ing = input(">>")
+
+def __ntwrk_menu():
+    menu.initialize_menu(networking_menu_dict, "NETWORKING MAIN MENU")
+
+def __ipfs_write():
+    ipfs.IPFS_add_file('cfg.txt')
+    input('>')
+
+
 # Main menu dictionary
 mm = {
-    'root file system list 2': rootfile_list_2,
-    'directory info': rfsm,
-    'matrix': matrixm
+    'current directory info': rootfile_list_2,
+    'custom directory info': rfsm,
+    'setup': __setup,
+    'networking menu': __ntwrk_menu
 }
+
+networking_menu_dict = {
+    'functional tpls_server': __tpls_server,
+    'write to ipfs': __ipfs_write
+
+}
+
 #==============================================================================================#
 ######## APP INTERFACE ########
 while run:
@@ -224,21 +226,11 @@ while run:
 
     elif command == '1':
         refresh_screen()              
-        initialize_menu(mm, 'ROOT FILE SYSTEM MAIN MENU')
+        menu.initialize_menu(mm, 'PYTHOS MAIN MENU')
 
     elif command == '2':
-        path = input('path >\t')
-        rfs(path)
-        command = input('>')
-    
-    elif command == '':
         refresh_screen()
+        __ntwrk_menu()
     
-    else:
-        try:
-            print(eval(command))
-            input('>')
-        except (NameError, SyntaxError):
-            print('ERROR')
-            input('>')
+
 #==============================================================================================#
